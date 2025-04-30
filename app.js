@@ -10,6 +10,7 @@ import subscriptionRouter from "./routes/subscription.route.js";
 import connectToDatabase from "./database/mongodb.js";
 
 import errorMiddleware from "./middlewares/error.middleware.js";
+import arcjetMiddleware from "./middlewares/arcjet.middleware.js";
 
 // Creating a constant of express.js - express is a function! (it is also an object, so it has properties too)
 const app = express();
@@ -22,6 +23,9 @@ app.use(express.urlencoded({ extended: false }));
 
 // cookieParser reads cookies from incoming requests so that app can store user data
 app.use(cookieParser());
+
+// Arcjet middleware for Rate limiting and Bot protection
+app.use(arcjetMiddleware);
 
 // URLs for Routers
 app.use("/api/v1/auth", authRouter);
